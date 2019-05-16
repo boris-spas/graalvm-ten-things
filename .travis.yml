@@ -29,13 +29,11 @@ install:
         fi
 
 script:
-    # High-performance modern Java
     - javac TopTen.java
     - for i in {0..2500}; do cat lorem.txt >> large.txt; done
     - java_time=$((/usr/bin/time -f %e java TopTen large.txt > /dev/null) |& xargs echo)
     - graal_time=$((/usr/bin/time -f %e $GRAALVM_HOME/bin/java TopTen large.txt > /dev/null) |& xargs echo)
     - awk "BEGIN { exit ($graal_time < $java_time) }"
-    # Low-footprint, fast-startup Java
     - head -c 1024 lorem.txt > small.txt
     - $GRAALVM_HOME/bin/native-image TopTen
     - java_time=$((/usr/bin/time -f %e java TopTen small.txt > /dev/null) |& xargs echo)
@@ -44,7 +42,6 @@ script:
     - java_space=$((/usr/bin/time -f %M java TopTen small.txt > /dev/null) |& xargs echo)
     - graal_space=$((/usr/bin/time -f %M ./topten small.txt > /dev/null) |& xargs echo)
     - awk "BEGIN { exit ($graal_time < $java_time) }"
-    # Polyglot
     - $GRAALVM_HOME/bin/npm install color
     - $GRAALVM_HOME/bin/npm install express
     - $GRAALVM_HOME/bin/gem install color
