@@ -12,7 +12,6 @@ env:
 
 install:
     - |
-        cd .. && mv simplelanguage "simple language" && cd "simple language"
         if [[ "$GRAALVM_VERSION" != "NONE" ]]; then
           if [[ "$TRAVIS_OS_NAME" == "osx" ]];   then DOWNLOAD_OS_NAME="darwin"; fi
           if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then DOWNLOAD_OS_NAME="linux"; fi
