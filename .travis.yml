@@ -1,11 +1,10 @@
 os:
     - linux
-    - osx
 
 language: java
 
 jdk:
-    - openjdk11
+    - oraclejdk8
 
 env:
     - GRAALVM_VERSION="19.0.0"
